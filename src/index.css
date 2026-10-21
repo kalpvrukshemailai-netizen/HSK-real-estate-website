@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #ffffff;
+  --color-surface-bone: #f7f7f5;
+  --color-surface-subtle: #f0f0ed;
+  --color-hairline: rgba(0, 0, 0, 0.08);
+  --color-hairline-dark: rgba(255, 255, 255, 0.12);
+  --color-obsidian: #0d0e0d;
+  --color-graphite: #1c1d1b;
+  --color-ash: #5a5c57;
+  --color-pebble: #8c8e87;
+
+  --font-display: "Helvetica Neue", "Futura", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg-canvas: #ffffff;
+    --bg-bone: #f7f7f5;
+    --bg-obsidian: #0d0e0d;
+
+    --ink-primary: #0d0e0d;
+    --ink-secondary: #5a5c57;
+    --ink-tertiary: #8c8e87;
+    --ink-inverse: #f7f7f5;
+
+    --hairline: rgba(0, 0, 0, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: var(--bg-canvas);
+    color: var(--ink-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    overflow-x: clip;
+    background-color: var(--bg-canvas);
+    color: var(--ink-primary);
+  }
+
+  /* Minimalist Elite Typography: Ultra-light headers with geometric restraint */
+  h1, h2, h3, h4, h5, .font-display {
+    font-family: var(--font-display);
+    font-weight: 200;
+    letter-spacing: -0.035em;
+  }
+}
+
+.hero-scrim {
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.hero-scrim-darker {
+  background-color: rgba(13, 14, 13, 0.65);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
