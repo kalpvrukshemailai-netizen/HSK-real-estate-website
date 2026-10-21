@@ -494,26 +494,30 @@ export default function App() {
               : 'max-w-5xl py-2.5 pl-4 sm:pl-6 pr-3 sm:pr-3.5 bg-[#0d0e0d]/80 border-white/20 shadow-black/30'
           }`}
         >
-          {/* Monogram Brand Mark */}
-          <a href="#top" className="flex items-center gap-2.5 sm:gap-3 group shrink-0" aria-label="hsk Homepage">
+          {/* HSK Builder Group Logo & Name */}
+          <a href="#top" className="flex items-center gap-2.5 sm:gap-3 group shrink-0" aria-label="HSK Builder Group Homepage">
             <motion.div
-              whileHover={{ rotate: 360, scale: 1.12 }}
+              whileHover={{ rotate: 360, scale: 1.08 }}
               transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-              className={`rounded-full bg-white/10 text-white flex items-center justify-center font-bold border border-white/15 transition-all duration-300 ${
-                isAtHero ? 'w-9 h-9 sm:w-10 sm:h-10 text-sm' : 'w-8 h-8 text-xs'
+              className={`rounded-full overflow-hidden border border-white/20 shadow-md shadow-black/40 flex items-center justify-center transition-all duration-300 ${
+                isAtHero ? 'w-10 h-10 sm:w-11 sm:h-11' : 'w-8 h-8 sm:w-9 sm:h-9'
               }`}
             >
-              H
+              <img
+                src="/images/hsk-logo.jpg"
+                alt="HSK Builder Group"
+                className="w-full h-full object-cover"
+              />
             </motion.div>
             <div className="flex flex-col">
-              <span className={`font-display font-light tracking-tight text-white group-hover:text-neutral-300 transition-all duration-300 lowercase whitespace-nowrap ${
+              <span className={`font-display font-medium tracking-wider text-white group-hover:text-neutral-200 transition-all duration-300 uppercase whitespace-nowrap ${
                 isAtHero ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg'
               }`}>
-                hsk.
+                HSK
               </span>
               {isAtHero && (
                 <span className="text-[9px] font-mono tracking-widest text-neutral-400 uppercase -mt-0.5 hidden sm:block whitespace-nowrap">
-                  south-west ahmedabad
+                  builder group • ahmedabad
                 </span>
               )}
             </div>
@@ -636,7 +640,7 @@ export default function App() {
         {/* Full-bleed authentic hero photography with slow Ken-Burns motion */}
         <motion.img
           src="/images/psygroup.webp"
-          alt="hsk South-West Ahmedabad"
+          alt="HSK South-West Ahmedabad"
           initial={{ scale: 1 }}
           animate={{ scale: 1.05 }}
           transition={{ duration: 18, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
@@ -653,7 +657,7 @@ export default function App() {
             className="lg:col-span-8 space-y-6"
           >
             <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-neutral-400">
-              <span>project id: hsk-amd-01</span>
+              <span>project id: HSK-AMD-01</span>
               <span>•</span>
               <span>ahmedabad, gujarat</span>
             </div>
@@ -670,7 +674,7 @@ export default function App() {
               transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
               className="text-base sm:text-lg text-neutral-200 max-w-2xl font-light leading-relaxed lowercase"
             >
-              hsk comprises two residential towers plus an independent villa enclave set across 8,100 sq. m. near sp ring road, south-west ahmedabad. crafted with thermal comfort, seismic engineering, and privacy.
+              HSK comprises two residential towers plus an independent villa enclave set across 8,100 sq. m. near sp ring road, south-west ahmedabad. crafted with thermal comfort, seismic engineering, and privacy.
             </motion.p>
 
             <motion.div
@@ -707,7 +711,7 @@ export default function App() {
             className="lg:col-span-4 text-left lg:text-right space-y-2 border-t lg:border-t-0 border-white/10 pt-4 lg:pt-0"
           >
             <div className="text-xs font-mono text-neutral-300 uppercase tracking-wider">south-west ahmedabad • sp ring road</div>
-            <div className="text-sm font-light text-white lowercase">hsk developers</div>
+            <div className="text-sm font-medium text-white tracking-wider uppercase">HSK BUILDER GROUP</div>
             <a href="#properties" className="group inline-flex items-center gap-1.5 text-xs text-neutral-300 hover:text-white transition-colors mt-2 lowercase">
               <span>scroll to inspect inventory</span>
               <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -1363,8 +1367,8 @@ export default function App() {
               <span className="text-xs font-mono uppercase tracking-widest text-[#8c8e87]">
                 project credentials
               </span>
-              <h2 className="font-display font-extralight text-3xl sm:text-5xl leading-tight tracking-[-0.04em] text-white lowercase">
-                hsk developers
+              <h2 className="font-display font-light text-3xl sm:text-5xl leading-tight tracking-[-0.03em] text-white uppercase">
+                HSK BUILDER GROUP
               </h2>
               <p className="text-sm text-neutral-300 font-light leading-relaxed lowercase">
                 building thoughtfully engineered residential communities. our projects emphasize verified construction craftsmanship, structural durability, and transparent rera governance.
@@ -1536,7 +1540,7 @@ export default function App() {
                       className="mt-1 accent-[#0d0e0d]"
                     />
                     <label htmlFor="lead-consent" className="text-xs text-[#5a5c57] leading-tight lowercase font-light">
-                      i provide consent to be contacted by hsk developers regarding pricing, schedule, and site appointments.
+                      i provide consent to be contacted by HSK Builder Group regarding pricing, schedule, and site appointments.
                     </label>
                   </div>
 
@@ -1564,15 +1568,24 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             <div className="md:col-span-5 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center font-bold text-xs border border-white/15">
-                  H
+                <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20 shadow-md">
+                  <img
+                    src="/images/hsk-logo.jpg"
+                    alt="HSK Builder Group"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <span className="font-display font-light text-2xl tracking-tight text-white lowercase">
-                  hsk.
-                </span>
+                <div className="flex flex-col">
+                  <span className="font-display font-medium text-2xl tracking-wider text-white uppercase">
+                    HSK
+                  </span>
+                  <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase">
+                    builder group
+                  </span>
+                </div>
               </div>
               <p className="text-xs text-neutral-400 font-light leading-relaxed max-w-sm lowercase">
-                near sp ring road, south-west ahmedabad. developed by hsk developers. committed to enduring construction craftsmanship, sustainable daylight architecture, and client excellence.
+                near sp ring road, south-west ahmedabad. developed by HSK Builder Group. committed to enduring construction craftsmanship, sustainable daylight architecture, and client excellence.
               </p>
             </div>
 
@@ -1607,7 +1620,7 @@ export default function App() {
           </div>
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-neutral-400 gap-4 border-t border-white/10">
-            <p>© 2026 hsk. all rights reserved. south-west ahmedabad.</p>
+            <p>© 2026 HSK BUILDER GROUP. all rights reserved. south-west ahmedabad.</p>
             <div className="flex gap-6 lowercase">
               <a href="#overview" className="hover:text-white transition-colors">top</a>
               <a href="#comparison" className="hover:text-white transition-colors">matrix</a>
