@@ -314,6 +314,7 @@ export default function App() {
   
   // Lead Consultation Form
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -438,9 +439,44 @@ export default function App() {
 
   const metrics = getBiophilicMetrics()
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault()
     if (!formData.name || !formData.phone) return
+
+    setIsSubmitting(true)
+
+    const scriptUrl = import.meta.env.VITE_APPS_SCRIPT_URL || (typeof window !== 'undefined' ? window.HSK_APPS_SCRIPT_URL : '')
+
+    const payload = {
+      action: 'createEnquiry',
+      customer_name: formData.name,
+      phone_number: formData.phone,
+      email: formData.email,
+      project_interest: formData.propertyId,
+      preferred_date: formData.preferredDate,
+      consent: formData.consent,
+      source: 'hsk-website',
+      utm_campaign: 'direct-web'
+    }
+
+    if (scriptUrl) {
+      try {
+        await fetch(scriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(payload)
+        })
+      } catch (err) {
+        console.warn('Google Sheet submission warning:', err)
+      }
+    } else {
+      console.warn('VITE_APPS_SCRIPT_URL not configured. Form submitted in mock state.')
+    }
+
+    setIsSubmitting(false)
     setFormSubmitted(true)
   }
 
@@ -1545,12 +1581,17 @@ export default function App() {
                   </div>
 
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                     type="submit"
-                    className="w-full py-4 rounded-xl bg-[#0d0e0d] hover:bg-neutral-800 text-white text-xs font-medium tracking-normal transition-colors cursor-pointer mt-2 lowercase"
+                    disabled={isSubmitting}
+                    className="w-full py-4 rounded-xl bg-[#0d0e0d] hover:bg-neutral-800 disabled:opacity-60 text-white text-xs font-medium tracking-normal transition-colors cursor-pointer mt-2 lowercase flex items-center justify-center gap-2"
                   >
-                    confirm consultation request
+                    {isSubmitting ? (
+                      <span>transmitting to hsk advisory queue...</span>
+                    ) : (
+                      <span>confirm consultation request</span>
+                    )}
                   </motion.button>
                   <p className="text-[11px] font-mono text-[#8c8e87] text-center lowercase">
                     your details are held strictly confidential under RERA Gujarat guidelines.
