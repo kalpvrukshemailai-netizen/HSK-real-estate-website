@@ -445,7 +445,7 @@ export default function App() {
 
     setIsSubmitting(true)
 
-    const scriptUrl = import.meta.env.VITE_APPS_SCRIPT_URL || (typeof window !== 'undefined' ? window.HSK_APPS_SCRIPT_URL : '')
+    const scriptUrl = import.meta.env.VITE_APPS_SCRIPT_URL || (typeof window !== 'undefined' && window.HSK_APPS_SCRIPT_URL ? window.HSK_APPS_SCRIPT_URL : 'https://script.google.com/macros/s/AKfycbxcEEMuk7jhNUH657G0oYLvDGhKFZt2Oh8xpbdlM1fxwJuhwPihCZMtbM0o525huytHhw/exec')
 
     const payload = {
       action: 'createEnquiry',
