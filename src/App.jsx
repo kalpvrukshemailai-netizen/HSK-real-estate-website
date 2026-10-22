@@ -9,27 +9,73 @@ import {
   MapPin,
   Check,
   MessageCircle,
-  Maximize2,
   Menu,
-  X,
-  Phone,
-  Mail,
-  Clock,
-  Compass,
-  Layers,
-  Sparkles
+  X
 } from 'lucide-react'
 
-// Authentic HSK 4 Properties Data (Source: Project Specification PDF)
+// Authentic Silverleaf & HSK Properties Data (Source: Project Specification PDF, Sections 2, 3-6 & 17)
 const PROPERTIES = [
+  {
+    id: 'SL-1B-401',
+    code: 'sl-1b-401',
+    number: '01',
+    title: '1 bhk starter apartment',
+    typology: '1 BHK Starter Compact Home',
+    tagline: 'compact starter home, combined living/dining, kitchen, lift and common security',
+    category: 'Apartment',
+    configGroup: '1bhk',
+    bhk: 1,
+    priceNumeric: 5400000,
+    priceDisplay: '₹54 lakh',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Bopal, Ahmedabad, Gujarat',
+    tower: 'Tower A',
+    floor: 'Floor 2 (illustrative)',
+    facing: 'North-East courtyard view',
+    carpetAreaSqM: 49,
+    carpetAreaSqFt: 527,
+    builtUpSqM: 61,
+    builtUpSqFt: 657,
+    saleableSqM: 73,
+    saleableSqFt: 786,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 1,
+    bathrooms: 1,
+    balconies: 1,
+    parking: '1 allotted two-wheeler space; car parking subject to availability',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Ready to move',
+    possession: 'Immediate / Ready to Move',
+    rera: 'Sanctioned Plan Ref: SL/BOP/2026/401',
+    image: '/images/praise2-lg.webp',
+    details: 'Compact starter home in Bopal designed for young professionals or investors, featuring combined living/dining, functional kitchen, lift access and security.',
+    spaces: [
+      { name: 'living + dining', areaM: '15 sq. m.', areaFt: '161 sq. ft.' },
+      { name: 'bedroom', areaM: '12 sq. m.', areaFt: '129 sq. ft.' },
+      { name: 'kitchen', areaM: '6 sq. m.', areaFt: '65 sq. ft.' },
+      { name: 'bathroom', areaM: '5 sq. m.', areaFt: '54 sq. ft.' },
+      { name: 'passage & storage', areaM: '7 sq. m.', areaFt: '75 sq. ft.' },
+      { name: 'balcony / utility', areaM: '4 sq. m.', areaFt: '43 sq. ft.' }
+    ],
+    highlights: [
+      'RCC framed structure with approved masonry and anti-skid bathroom tile',
+      'Vitrified flooring in dry areas and stone kitchen counter',
+      'Concealed wiring/plumbing with approved common fire-safety measures',
+      'Ready-to-move efficiency ideal for single occupants or starter couples'
+    ],
+    bestSuited: 'first-time buyers, young professionals, and investors seeking manageable maintenance'
+  },
   {
     id: 'SL-2B-101',
     code: 'sl-2b-101',
-    number: '01',
+    number: '02',
     title: '2 bhk apartment',
     typology: '2 BHK Compact Luxury Sanctuary',
     tagline: 'compact two-bedroom home for couples, small families, or first-time buyers',
     category: 'Apartment',
+    configGroup: '2bhk',
+    bhk: 2,
     priceNumeric: 7800000,
     priceDisplay: '₹78 lakh',
     priceNote: 'indicative base price • taxes & maintenance extra',
@@ -73,13 +119,171 @@ const PROPERTIES = [
     bestSuited: 'first-time buyers, couples, small families prioritizing manageable maintenance'
   },
   {
+    id: 'SL-2B-102',
+    code: 'sl-2b-102',
+    number: '03',
+    title: '2 bhk smart apartment',
+    typology: '2 BHK Smart Efficiency Suite',
+    tagline: 'balcony, utility niche, modular-kitchen provision, lift and landscaped garden',
+    category: 'Apartment',
+    configGroup: '2bhk',
+    bhk: 2,
+    priceNumeric: 8200000,
+    priceDisplay: '₹82 lakh',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'South Bopal, Ahmedabad, Gujarat',
+    tower: 'Tower A',
+    floor: 'Floor 3',
+    facing: 'North-facing (balanced ambient daylight)',
+    carpetAreaSqM: 76,
+    carpetAreaSqFt: 818,
+    builtUpSqM: 94,
+    builtUpSqFt: 1012,
+    saleableSqM: 113,
+    saleableSqFt: 1216,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 2,
+    bathrooms: 2,
+    balconies: 1,
+    parking: '1 covered car parking',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Ready to move',
+    possession: 'Immediate / Ready to Move',
+    rera: 'Sanctioned Plan Ref: SL/SBOP/2026/102',
+    image: '/images/arista1-lg.webp',
+    details: 'Smart two-bedroom apartment in South Bopal with private balcony, utility niche, modular kitchen provision, passenger lift, and landscaped garden views.',
+    spaces: [
+      { name: 'living + dining', areaM: '21 sq. m.', areaFt: '226 sq. ft.' },
+      { name: 'bedroom 1', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'bedroom 2', areaM: '12 sq. m.', areaFt: '129 sq. ft.' },
+      { name: 'kitchen', areaM: '8.5 sq. m.', areaFt: '91 sq. ft.' },
+      { name: 'bathrooms (2 combined)', areaM: '8 sq. m.', areaFt: '86 sq. ft.' },
+      { name: 'passage & internal storage', areaM: '13.5 sq. m.', areaFt: '146 sq. ft.' },
+      { name: 'balcony / utility', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'North-facing floor 3 position shielding from harsh afternoon glare',
+      'Modular kitchen electrical conduits, gas line, and plumbing provisioned',
+      'Vitrified flooring in dry rooms, anti-skid tiles in bathrooms',
+      'Concealed copper wiring with dedicated MCB distribution box'
+    ],
+    bestSuited: 'first-time buyers, couples, and professionals seeking move-in readiness in South Bopal'
+  },
+  {
+    id: 'SL-2B-103',
+    code: 'sl-2b-103',
+    number: '04',
+    title: '2 bhk garden-view apartment',
+    typology: '2 BHK Garden-View Sanctuary',
+    tagline: 'garden-facing balcony, dining niche, utility area, children\'s play area and bicycle parking',
+    category: 'Apartment',
+    configGroup: '2bhk',
+    bhk: 2,
+    priceNumeric: 8600000,
+    priceDisplay: '₹86 lakh',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Bopal, Ahmedabad, Gujarat',
+    tower: 'Tower A',
+    floor: 'Floor 6',
+    facing: 'Garden-facing (central botanical park view)',
+    carpetAreaSqM: 79,
+    carpetAreaSqFt: 850,
+    builtUpSqM: 98,
+    builtUpSqFt: 1055,
+    saleableSqM: 118,
+    saleableSqFt: 1270,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 2,
+    bathrooms: 2,
+    balconies: 1,
+    parking: '1 covered car parking',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Under construction',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/BOP/2028/103',
+    image: '/images/praise3-lg.webp',
+    details: 'Garden-view residence on Floor 6 in Bopal, featuring a tranquil garden-facing balcony, dedicated dining niche, utility enclave, and bicycle parking.',
+    spaces: [
+      { name: 'living + dining niche', areaM: '22 sq. m.', areaFt: '237 sq. ft.' },
+      { name: 'bedroom 1', areaM: '14 sq. m.', areaFt: '151 sq. ft.' },
+      { name: 'bedroom 2', areaM: '12 sq. m.', areaFt: '129 sq. ft.' },
+      { name: 'kitchen', areaM: '9 sq. m.', areaFt: '97 sq. ft.' },
+      { name: 'bathrooms (2 combined)', areaM: '8 sq. m.', areaFt: '86 sq. ft.' },
+      { name: 'circulation & passage', areaM: '14 sq. m.', areaFt: '150 sq. ft.' },
+      { name: 'garden-facing balcony', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'Elevated 6th floor balcony overlooking landscaped green lawns',
+      'Engineered RCC frame with waterproofed wet zones and anti-skid tiles',
+      'Pre-installed AC conduits and concealed electrical lines',
+      'Children\'s play enclave and common fire-safety infrastructure'
+    ],
+    bestSuited: 'nature enthusiasts and young families desiring green vistas and community recreation'
+  },
+  {
+    id: 'SL-2B-104',
+    code: 'sl-2b-104',
+    number: '05',
+    title: '2 bhk corner apartment',
+    typology: '2 BHK Corner Cross-Breeze Residence',
+    tagline: 'corner layout, potential two-side ventilation subject to plan, balcony, lift and security',
+    category: 'Apartment',
+    configGroup: '2bhk',
+    bhk: 2,
+    priceNumeric: 8900000,
+    priceDisplay: '₹89 lakh',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Shela, Ahmedabad, Gujarat',
+    tower: 'Tower B',
+    floor: 'Floor 9',
+    facing: 'Corner dual-aspect (cross-ventilation breeze)',
+    carpetAreaSqM: 81,
+    carpetAreaSqFt: 872,
+    builtUpSqM: 100,
+    builtUpSqFt: 1076,
+    saleableSqM: 121,
+    saleableSqFt: 1302,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 2,
+    bathrooms: 2,
+    balconies: 1,
+    parking: '1 covered car parking',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Available',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/SHL/2028/104',
+    image: '/images/arista2-lg.webp',
+    details: 'Corner layout on Floor 9 in Shela offering potential two-side ventilation, expansive natural light, powder-coated uPVC windows, and high-speed elevator access.',
+    spaces: [
+      { name: 'living + dining room', areaM: '23 sq. m.', areaFt: '248 sq. ft.' },
+      { name: 'master bedroom', areaM: '14.5 sq. m.', areaFt: '156 sq. ft.' },
+      { name: 'bedroom 2', areaM: '12.5 sq. m.', areaFt: '135 sq. ft.' },
+      { name: 'kitchen', areaM: '9 sq. m.', areaFt: '97 sq. ft.' },
+      { name: 'bathrooms (2 combined)', areaM: '8 sq. m.', areaFt: '86 sq. ft.' },
+      { name: 'passage & storage', areaM: '14 sq. m.', areaFt: '150 sq. ft.' },
+      { name: 'corner viewing balcony', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'Dual-aspect corner positioning maximizing fresh cross-ventilation',
+      'Floor 9 elevated open horizons and unhindered skyline vistas',
+      'Powder-coated aluminium/uPVC windows with clear acoustic glass',
+      'Concealed wiring with MCB distribution board and covered car space'
+    ],
+    bestSuited: 'buyers seeking superior ventilation, natural daylight, and corner privacy in Shela'
+  },
+  {
     id: 'SL-3B-204',
     code: 'sl-3b-204',
-    number: '02',
+    number: '06',
     title: '3 bhk apartment',
     typology: '3 BHK Corner Family Residence',
     tagline: 'larger family apartment with separate dining area, three bedrooms and additional storage',
     category: 'Apartment',
+    configGroup: '3bhk',
+    bhk: 3,
     priceNumeric: 11200000,
     priceDisplay: '₹1.12 crore',
     priceNote: 'indicative base price • taxes & maintenance extra',
@@ -124,13 +328,227 @@ const PROPERTIES = [
     bestSuited: 'families needing a dedicated room for children, guests, work-from-home or study'
   },
   {
+    id: 'SL-3B-205',
+    code: 'sl-3b-205',
+    number: '07',
+    title: '3 bhk family apartment',
+    typology: '3 BHK Family Living Residence',
+    tagline: 'three bathrooms, two balconies, utility zone, family dining, lift and community room',
+    category: 'Apartment',
+    configGroup: '3bhk',
+    bhk: 3,
+    priceNumeric: 11800000,
+    priceDisplay: '₹1.18 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Bopal, Ahmedabad, Gujarat',
+    tower: 'Tower A',
+    floor: 'Floor 5',
+    facing: 'East-facing (dawn morning sunshine)',
+    carpetAreaSqM: 108,
+    carpetAreaSqFt: 1163,
+    builtUpSqM: 134,
+    builtUpSqFt: 1442,
+    saleableSqM: 161,
+    saleableSqFt: 1733,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 3,
+    bathrooms: 3,
+    balconies: 2,
+    parking: '1 covered car parking',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Ready to move',
+    possession: 'Immediate / Ready to Move',
+    rera: 'Sanctioned Plan Ref: SL/BOP/2026/205',
+    image: '/images/trinity1-lg.webp',
+    details: 'Spacious ready-to-move 3 BHK in Bopal featuring 3 bathrooms, two deep balconies, dedicated family dining area, separate utility zone, and multipurpose room access.',
+    spaces: [
+      { name: 'living + family dining', areaM: '28 sq. m.', areaFt: '301 sq. ft.' },
+      { name: 'master bedroom', areaM: '17 sq. m.', areaFt: '183 sq. ft.' },
+      { name: 'bedroom 2', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'bedroom 3', areaM: '12 sq. m.', areaFt: '129 sq. ft.' },
+      { name: 'kitchen', areaM: '11 sq. m.', areaFt: '118 sq. ft.' },
+      { name: 'bathrooms (3 combined)', areaM: '12 sq. m.', areaFt: '129 sq. ft.' },
+      { name: 'passage & internal storage', areaM: '15 sq. m.', areaFt: '163 sq. ft.' },
+      { name: '2 balconies & utility', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'Three full bathrooms accommodating large multi-member households',
+      'East-facing master layout bathed in morning sunrise illumination',
+      'Stone kitchen counter with exhaust provision & anti-skid bathroom tiles',
+      'Immediate occupancy ready with lift access and covered car space'
+    ],
+    bestSuited: 'families wanting immediate move-in readiness with three private bathrooms and double balconies'
+  },
+  {
+    id: 'SL-3B-206',
+    code: 'sl-3b-206',
+    number: '08',
+    title: '3 bhk work-from-home apartment',
+    typology: '3 BHK Hybrid Work & Living Haven',
+    tagline: 'flexible third bedroom for office/study, two balconies, internet/TV points, play area and gym room',
+    category: 'Apartment',
+    configGroup: '3bhk',
+    bhk: 3,
+    priceNumeric: 12400000,
+    priceDisplay: '₹1.24 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'South Bopal, Ahmedabad, Gujarat',
+    tower: 'Tower B',
+    floor: 'Floor 7',
+    facing: 'South-East orientation (all-day ambient daylight)',
+    carpetAreaSqM: 112,
+    carpetAreaSqFt: 1206,
+    builtUpSqM: 139,
+    builtUpSqFt: 1496,
+    saleableSqM: 167,
+    saleableSqFt: 1798,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 3,
+    bathrooms: 3,
+    balconies: 2,
+    parking: '1 covered car; second subject to availability',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Under construction',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/SBOP/2028/206',
+    image: '/images/praise2-lg.webp',
+    details: 'Intelligently planned hybrid apartment in South Bopal with flexible third bedroom configured for quiet executive study, high-speed fiber conduits, and dual balconies.',
+    spaces: [
+      { name: 'living + dining zone', areaM: '29 sq. m.', areaFt: '312 sq. ft.' },
+      { name: 'master bedroom', areaM: '17 sq. m.', areaFt: '183 sq. ft.' },
+      { name: 'bedroom 2', areaM: '14 sq. m.', areaFt: '151 sq. ft.' },
+      { name: 'executive home office / bed 3', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'kitchen', areaM: '11 sq. m.', areaFt: '118 sq. ft.' },
+      { name: 'bathrooms (3 combined)', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'passage & storage', areaM: '15 sq. m.', areaFt: '162 sq. ft.' },
+      { name: '2 balconies & utility', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'Acoustically insulated third bedroom tailored for executive remote work',
+      'Floor 7 South-East orientation providing continuous gentle sunlight',
+      'Structured high-speed internet, data and split-AC conduit feeds',
+      'Direct access to resident gym studio and children\'s recreation lawns'
+    ],
+    bestSuited: 'remote professionals, tech leaders, consultants, and families needing a dedicated study'
+  },
+  {
+    id: 'SL-3B-207',
+    code: 'sl-3b-207',
+    number: '09',
+    title: '3 bhk premium balcony apartment',
+    typology: '3 BHK Panoramic Terrace Balcony Suite',
+    tagline: 'larger living/dining, two balconies, optional upgraded finish package, gym and landscaped open space',
+    category: 'Apartment',
+    configGroup: '3bhk',
+    bhk: 3,
+    priceNumeric: 13200000,
+    priceDisplay: '₹1.32 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Shela, Ahmedabad, Gujarat',
+    tower: 'Tower B',
+    floor: 'Floor 11',
+    facing: 'Open horizon view (sunset skyline perspective)',
+    carpetAreaSqM: 116,
+    carpetAreaSqFt: 1249,
+    builtUpSqM: 144,
+    builtUpSqFt: 1550,
+    saleableSqM: 173,
+    saleableSqFt: 1862,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 3,
+    bathrooms: 3,
+    balconies: 2,
+    parking: '2 covered spaces (verify)',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Available',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/SHL/2028/207',
+    image: '/images/arista2-lg.webp',
+    details: 'Upper-floor sky residence in Shela offering an enlarged living/dining salon, dual wide panoramic balconies, optional designer finishes, and two covered parking spaces.',
+    spaces: [
+      { name: 'expansive living + dining', areaM: '31 sq. m.', areaFt: '334 sq. ft.' },
+      { name: 'master bedroom suite', areaM: '18 sq. m.', areaFt: '194 sq. ft.' },
+      { name: 'bedroom 2', areaM: '14 sq. m.', areaFt: '151 sq. ft.' },
+      { name: 'bedroom 3', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'kitchen', areaM: '11 sq. m.', areaFt: '118 sq. ft.' },
+      { name: 'bathrooms (3 combined)', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'foyer & circulation', areaM: '16 sq. m.', areaFt: '172 sq. ft.' },
+      { name: '2 wide panoramic balconies', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'High-altitude 11th-floor horizon views overlooking green Shela enclaves',
+      'Two reserved covered vehicular parking stalls',
+      'Large-format vitrified floor options and engineered balcony balustrades',
+      'Exclusive fitness pavilion and landscaped open space privileges'
+    ],
+    bestSuited: 'buyers who cherish elevated open views, outdoor balcony hosting, and expanded living dimensions'
+  },
+  {
+    id: 'SL-3B-208',
+    code: 'sl-3b-208',
+    number: '10',
+    title: '3 bhk terrace-access apartment',
+    typology: '3 BHK Top-Floor Sky Penthouse with Terrace Access',
+    tagline: 'top-floor layout, two balconies; terrace access only if granted in approved plans and sale agreement',
+    category: 'Apartment',
+    configGroup: '3bhk',
+    bhk: 3,
+    priceNumeric: 13800000,
+    priceDisplay: '₹1.38 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Shela, Ahmedabad, Gujarat',
+    tower: 'Tower B',
+    floor: 'Top Floor',
+    facing: 'Top-floor 360° panoramic horizon vantage',
+    carpetAreaSqM: 120,
+    carpetAreaSqFt: 1292,
+    builtUpSqM: 148,
+    builtUpSqFt: 1593,
+    saleableSqM: 178,
+    saleableSqFt: 1916,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 3,
+    bathrooms: 3,
+    balconies: 2,
+    parking: '2 covered spaces (verify)',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Available',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/SHL/2028/208',
+    image: '/images/praise3-lg.webp',
+    details: 'Crown top-floor apartment in Shela featuring 120 m² (1,292 sq. ft.) carpet area, two expansive balconies, roof terrace access potential, and 2 covered parking bays.',
+    spaces: [
+      { name: 'grand living + dining', areaM: '32 sq. m.', areaFt: '344 sq. ft.' },
+      { name: 'master bedroom suite', areaM: '19 sq. m.', areaFt: '205 sq. ft.' },
+      { name: 'bedroom 2', areaM: '15 sq. m.', areaFt: '161 sq. ft.' },
+      { name: 'bedroom 3', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'kitchen & utility', areaM: '12 sq. m.', areaFt: '129 sq. ft.' },
+      { name: 'bathrooms (3 combined)', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'gallery & passage', areaM: '16 sq. m.', areaFt: '173 sq. ft.' },
+      { name: 'sky terrace access & balconies', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'Top-floor penthouse exclusivity with direct rooftop sky terrace connection',
+      'Two generous open-air balconies capturing panoramic sunrises & sunsets',
+      'Dual covered parking bays included in reservation scope',
+      'Specialized multi-layer roof thermal insulation and waterproofing system'
+    ],
+    bestSuited: 'buyers seeking penthouse prestige, open-sky terrace lifestyle, and top-floor peace'
+  },
+  {
     id: 'SL-4B-305',
     code: 'sl-4b-305',
-    number: '03',
+    number: '11',
     title: '4 bhk premium apartment',
     typology: '4 BHK Grand Sky Residence',
     tagline: 'spacious apartment with four bedrooms, larger living zone and room for a home office',
     category: 'Premium Apartment',
+    configGroup: '4bhk',
+    bhk: 4,
     priceNumeric: 15800000,
     priceDisplay: '₹1.58 crore',
     priceNote: 'indicative base price • taxes & maintenance extra',
@@ -176,13 +594,123 @@ const PROPERTIES = [
     bestSuited: 'larger families, multi-generational households, or buyers needing separate office and guest suites'
   },
   {
+    id: 'SL-4B-306',
+    code: 'sl-4b-306',
+    number: '12',
+    title: '4 bhk multi-generation apartment',
+    typology: '4 BHK Multi-Generational Family Suite',
+    tagline: 'four bedrooms and bathrooms, larger dining zone, two balconies and two parking spaces',
+    category: 'Premium Apartment',
+    configGroup: '4bhk',
+    bhk: 4,
+    priceNumeric: 16800000,
+    priceDisplay: '₹1.68 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'South Bopal, Ahmedabad, Gujarat',
+    tower: 'Tower A',
+    floor: 'Floor 10',
+    facing: 'East-facing living & master suite (dawn light)',
+    carpetAreaSqM: 149,
+    carpetAreaSqFt: 1604,
+    builtUpSqM: 183,
+    builtUpSqFt: 1970,
+    saleableSqM: 220,
+    saleableSqFt: 2368,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 4,
+    bathrooms: 4,
+    balconies: 2,
+    parking: '2 covered cars',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Available',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/SBOP/2028/306',
+    image: '/images/psygroup.webp',
+    details: 'Spacious 4 BHK residence in South Bopal planned for joint families with 4 full bathrooms, expansive dining room, two balconies, and two parking stalls.',
+    spaces: [
+      { name: 'formal living & family dining', areaM: '33 sq. m.', areaFt: '355 sq. ft.' },
+      { name: 'primary master suite', areaM: '20 sq. m.', areaFt: '215 sq. ft.' },
+      { name: 'bedroom 2 (elder suite)', areaM: '16 sq. m.', areaFt: '172 sq. ft.' },
+      { name: 'bedroom 3', areaM: '15 sq. m.', areaFt: '161 sq. ft.' },
+      { name: 'bedroom 4 / study', areaM: '13 sq. m.', areaFt: '140 sq. ft.' },
+      { name: 'kitchen & utility pantry', areaM: '15 sq. m.', areaFt: '161 sq. ft.' },
+      { name: 'bathrooms (4 combined)', areaM: '16 sq. m.', areaFt: '172 sq. ft.' },
+      { name: 'vestibule & circulation', areaM: '21 sq. m.', areaFt: '228 sq. ft.' },
+      { name: '2 wide horizon balconies', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'Four independent en-suite bedrooms providing absolute privacy for multi-gen families',
+      'Level 10 vantage with gentle morning east daylight illumination',
+      'Two reserved covered vehicular parking stalls',
+      'Reinforced RCC acoustic frame and double passenger elevator access'
+    ],
+    bestSuited: 'large families, multi-generational households, and owners wanting separate private suites'
+  },
+  {
+    id: 'SL-4B-307',
+    code: 'sl-4b-307',
+    number: '13',
+    title: '4 bhk corner premium apartment',
+    typology: '4 BHK Corner Sky Sanctuary',
+    tagline: 'corner plan, flexible office/guest bedroom, two balconies and larger kitchen',
+    category: 'Premium Apartment',
+    configGroup: '4bhk',
+    bhk: 4,
+    priceNumeric: 17800000,
+    priceDisplay: '₹1.78 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Bopal, Ahmedabad, Gujarat',
+    tower: 'Tower B',
+    floor: 'Floor 14',
+    facing: 'Corner triple-aspect (panoramic horizon)',
+    carpetAreaSqM: 154,
+    carpetAreaSqFt: 1658,
+    builtUpSqM: 190,
+    builtUpSqFt: 2045,
+    saleableSqM: 228,
+    saleableSqFt: 2454,
+    plotSqM: null,
+    plotSqFt: null,
+    bedrooms: 4,
+    bathrooms: 4,
+    balconies: 2,
+    parking: '2 covered cars',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Under construction',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/BOP/2028/307',
+    image: '/images/pramukh-arista.webp',
+    details: 'Penthouse level 14 corner sky sanctuary in Bopal offering triple-aspect airflow, 154 m² usable carpet area, flexible office suite, chef kitchen, and 2 covered parking bays.',
+    spaces: [
+      { name: 'grand corner living & dining', areaM: '35 sq. m.', areaFt: '377 sq. ft.' },
+      { name: 'presidential master suite', areaM: '21 sq. m.', areaFt: '226 sq. ft.' },
+      { name: 'bedroom 2', areaM: '16 sq. m.', areaFt: '172 sq. ft.' },
+      { name: 'bedroom 3', areaM: '15 sq. m.', areaFt: '161 sq. ft.' },
+      { name: 'bedroom 4 / studio', areaM: '14 sq. m.', areaFt: '151 sq. ft.' },
+      { name: 'large gourmet kitchen + utility', areaM: '16 sq. m.', areaFt: '172 sq. ft.' },
+      { name: 'bathrooms (4 combined)', areaM: '16 sq. m.', areaFt: '172 sq. ft.' },
+      { name: 'foyer, passage & store', areaM: '21 sq. m.', areaFt: '227 sq. ft.' },
+      { name: '2 corner terrace balconies', areaM: 'exclusive', areaFt: 'excluded from carpet' }
+    ],
+    highlights: [
+      'Highest 14th-floor corner elevation with expansive triple-aspect city skyline panorama',
+      'Substantial chef kitchen layout with independent exterior service utility',
+      'Two covered parking spaces with EV charging point conduit access',
+      'Private vestibule entry with enhanced acoustic insulation doors'
+    ],
+    bestSuited: 'discerning families desiring top-floor corner vistas, maximum spatial volume, and elite finishing'
+  },
+  {
     id: 'SL-V-07',
     code: 'sl-v-07',
-    number: '04',
+    number: '14',
     title: 'independent 4 bhk villa',
     typology: '4 BHK Standalone Signature Villa',
     tagline: 'two-level independent home with private outdoor space, family lounge and dedicated parking',
     category: 'Independent Villa',
+    configGroup: 'villa',
+    bhk: 4,
     priceNumeric: 26500000,
     priceDisplay: '₹2.65 crore',
     priceNote: 'indicative base price • taxes & maintenance extra',
@@ -225,8 +753,168 @@ const PROPERTIES = [
       'Private two-car paved driveway within the gated plot boundary'
     ],
     bestSuited: 'buyers seeking complete privacy, private outdoor space, independent access and room for larger households'
+  },
+  {
+    id: 'SL-V-08',
+    code: 'sl-v-08',
+    number: '15',
+    title: '4 bhk courtyard villa',
+    typology: '4 BHK Private Courtyard Signature Villa',
+    tagline: 'approx. 350 m² plot, private courtyard/garden, family lounge and two-car parking',
+    category: 'Independent Villa',
+    configGroup: 'villa',
+    bhk: 4,
+    priceNumeric: 28200000,
+    priceDisplay: '₹2.82 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Shela, Ahmedabad, Gujarat',
+    tower: 'Villa Enclave (Shela)',
+    floor: 'Ground + First Floor',
+    facing: 'Private courtyard & internal landscaped garden',
+    carpetAreaSqM: 210,
+    carpetAreaSqFt: 2260,
+    builtUpSqM: 260,
+    builtUpSqFt: 2799,
+    saleableSqM: null,
+    saleableSqFt: null,
+    plotSqM: 350,
+    plotSqFt: 3767,
+    bedrooms: 4,
+    bathrooms: 4,
+    balconies: 2,
+    parking: '2 cars within plot',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Available',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/SHL/2028/V08',
+    image: '/images/trinity1-lg.webp',
+    details: 'Two-level standalone villa in Shela on approx. 350 m² plot, boasting a secluded central open-air courtyard, private garden lawn, family lounge, and 2-car internal driveway.',
+    spaces: [
+      { name: 'ground: formal living + dining', areaM: '38 sq. m.', areaFt: '409 sq. ft.' },
+      { name: 'ground: central open courtyard', areaM: 'approx. 40 sq. m.', areaFt: 'open to sky' },
+      { name: 'ground: kitchen & utility pantry', areaM: '16 sq. m.', areaFt: '172 sq. ft.' },
+      { name: 'ground: guest suite + bath', areaM: '23 sq. m.', areaFt: '248 sq. ft.' },
+      { name: 'first: master suite + bath', areaM: '32 sq. m.', areaFt: '344 sq. ft.' },
+      { name: 'first: bedrooms 3 & 4', areaM: '30 sq. m.', areaFt: '323 sq. ft.' },
+      { name: 'first: private family lounge', areaM: '38 sq. m.', areaFt: '409 sq. ft.' },
+      { name: 'landscaped lawn & driveway', areaM: 'plot 350 sq. m.', areaFt: '3,767 sq. ft.' }
+    ],
+    highlights: [
+      '350 sq. m. private plot centered around a signature open-air courtyard',
+      'Two-car paved driveway with secure automated sliding compound gate',
+      'Waterproofed private roof terrace with integrated solar/rainwater collection',
+      'Zero shared walls ensuring absolute acoustic and visual seclusion'
+    ],
+    bestSuited: 'buyers desiring private independent villa grounds, internal open-to-sky courtyards, and secluded family living'
+  },
+  {
+    id: 'SL-V-09',
+    code: 'sl-v-09',
+    number: '16',
+    title: '4 bhk garden villa',
+    typology: '4 BHK Verdant Botanical Garden Villa',
+    tagline: 'approx. 375 m² plot, private garden, family lounge, covered entry and two-car parking',
+    category: 'Independent Villa',
+    configGroup: 'villa',
+    bhk: 4,
+    priceNumeric: 29500000,
+    priceDisplay: '₹2.95 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'Bopal, Ahmedabad, Gujarat',
+    tower: 'Villa Enclave (Bopal)',
+    floor: 'Ground + First Floor',
+    facing: 'Perimeter private botanical garden',
+    carpetAreaSqM: 218,
+    carpetAreaSqFt: 2347,
+    builtUpSqM: 270,
+    builtUpSqFt: 2906,
+    saleableSqM: null,
+    saleableSqFt: null,
+    plotSqM: 375,
+    plotSqFt: 4036,
+    bedrooms: 4,
+    bathrooms: 4,
+    balconies: 2,
+    parking: '2 cars within plot',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Under construction',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/BOP/2028/V09',
+    image: '/images/trinity2-lg.webp',
+    details: 'Spectacular 375 m² estate villa in Bopal framed by an extensive wraparound private garden, shaded portico arrival, double-height foyer, and dedicated upper family retreat.',
+    spaces: [
+      { name: 'ground: living + garden dining', areaM: '40 sq. m.', areaFt: '430 sq. ft.' },
+      { name: 'ground: kitchen & utility wash', areaM: '17 sq. m.', areaFt: '183 sq. ft.' },
+      { name: 'ground: bedroom 1 + bath', areaM: '24 sq. m.', areaFt: '258 sq. ft.' },
+      { name: 'first: master retreat + balcony', areaM: '34 sq. m.', areaFt: '366 sq. ft.' },
+      { name: 'first: bedrooms 3 & 4', areaM: '32 sq. m.', areaFt: '344 sq. ft.' },
+      { name: 'first: upstairs family salon', areaM: '40 sq. m.', areaFt: '430 sq. ft.' },
+      { name: 'private wraparound garden', areaM: 'approx. 90 sq. m.', areaFt: 'lush lawn' },
+      { name: 'estate plot area', areaM: '375 sq. m.', areaFt: '4,036 sq. ft.' }
+    ],
+    highlights: [
+      '375 sq. m. generous estate grounds with sprawling lawn and mature fruit trees',
+      'Covered carriage portico with two-car paved private parking',
+      'Engineered foundation with reinforced anti-termite and waterproofing barrier',
+      'Low-VOC breathable interior paint and energy-efficient AAC envelope'
+    ],
+    bestSuited: 'nature lovers and families prioritizing extensive green lawn space and independent living'
+  },
+  {
+    id: 'SL-V-10',
+    code: 'sl-v-10',
+    number: '17',
+    title: '5 bhk executive villa',
+    typology: '5 BHK Grand Executive Sovereign Estate',
+    tagline: 'approx. 420 m² plot, five bedrooms, guest suite, family lounge, private garden and two-car parking',
+    category: 'Independent Villa',
+    configGroup: 'villa',
+    bhk: 5,
+    priceNumeric: 34500000,
+    priceDisplay: '₹3.45 crore',
+    priceNote: 'indicative base price • taxes & maintenance extra',
+    location: 'South Bopal, Ahmedabad, Gujarat',
+    tower: 'Villa Enclave (South Bopal)',
+    floor: 'Ground + First Floor',
+    facing: 'Exclusive private plot perimeter',
+    carpetAreaSqM: 246,
+    carpetAreaSqFt: 2648,
+    builtUpSqM: 305,
+    builtUpSqFt: 3283,
+    saleableSqM: null,
+    saleableSqFt: null,
+    plotSqM: 420,
+    plotSqFt: 4521,
+    bedrooms: 5,
+    bathrooms: 5,
+    balconies: 3,
+    parking: '2 cars; third subject to plot design',
+    maintenance: 'Illustrative only; confirm with sales team',
+    availability: 'Available',
+    possession: 'December 2028',
+    rera: 'Sanctioned Plan Ref: SL/SBOP/2028/V10',
+    image: '/images/pramukh-trinity.webp',
+    details: 'The crown jewel of Silverleaf Residences: a 420 m² sovereign estate villa in South Bopal with 5 spacious suites, 2,648 sq. ft. net carpet area, executive lounge, and 3-car parking capacity.',
+    spaces: [
+      { name: 'ground: grand salon + banquet dining', areaM: '46 sq. m.', areaFt: '495 sq. ft.' },
+      { name: 'ground: executive kitchen + utility', areaM: '20 sq. m.', areaFt: '215 sq. ft.' },
+      { name: 'ground: guest suite 1 + bath', areaM: '26 sq. m.', areaFt: '280 sq. ft.' },
+      { name: 'first: presidential master suite', areaM: '38 sq. m.', areaFt: '409 sq. ft.' },
+      { name: 'first: junior suites 3 & 4', areaM: '36 sq. m.', areaFt: '388 sq. ft.' },
+      { name: 'first: bedroom 5 / study', areaM: '20 sq. m.', areaFt: '215 sq. ft.' },
+      { name: 'first: executive family lounge', areaM: '42 sq. m.', areaFt: '452 sq. ft.' },
+      { name: 'private landscaped grounds & lawn', areaM: 'plot 420 sq. m.', areaFt: '4,521 sq. ft.' }
+    ],
+    highlights: [
+      'Monumental 420 sq. m. parcel with 246 m² (2,648 sq. ft.) net carpet area',
+      'Five complete bedroom suites with five en-suite luxury bathrooms',
+      'Private compound wall with multi-vehicle driveway parking (up to 3 vehicles)',
+      'Reinforced RCC structure engineered to seismic specifications with private terrace'
+    ],
+    bestSuited: 'prominent industrialists, corporate leaders, and large families seeking unmatched luxury and privacy'
   }
 ]
+
 
 // Staggered Editorial Gallery Items
 const GALLERY_ITEMS = [
@@ -299,14 +987,17 @@ const TRANSIT = [
 // Heritage & Project Metrics
 const STATS = [
   { value: '8,100', label: 'square metres site area', detail: 'approx. 2 acres masterplan near sp ring road' },
-  { value: '4', label: 'bespoke configurations', detail: '2, 3 & 4 bhk apartments plus independent villa' },
-  { value: '2028', label: 'possession target', detail: 'december 2028 illustrative delivery timeline' },
+  { value: '17', label: 'curated residences', detail: '1, 2, 3 & 4 bhk apartments plus independent villas' },
+  { value: '2028', label: 'possession target', detail: 'december 2028 delivery & ready-to-move options' },
   { value: '100%', label: 'rera registered process', detail: 'transparent title, sanctioned plans & approvals' }
 ]
 
 export default function App() {
   const [activeProjectIdx, setActiveProjectIdx] = useState(0)
   const [activeModalProperty, setActiveModalProperty] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [tableFilter, setTableFilter] = useState('all')
+  const [tableLocation, setTableLocation] = useState('all')
   
   // Interactive Living Index / Daylight Calculator
   const [unitType, setUnitType] = useState('3bhk')
@@ -756,7 +1447,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 3. The 4 Properties Showcase Slider with Window Shutter Transition Animation */}
+      {/* 3. The 17 Properties Showcase Slider with Window Shutter Transition Animation */}
       <section id="properties" className="py-28 px-6 md:px-10 bg-[#f7f7f5] border-b border-black/[0.08]">
         <div className="max-w-7xl mx-auto space-y-12">
           
@@ -772,10 +1463,10 @@ export default function App() {
                 active inventory • section 02
               </div>
               <h2 className="font-display font-extralight text-3xl sm:text-5xl tracking-[-0.04em] text-[#0d0e0d] lowercase">
-                the four residences
+                curated residences
               </h2>
               <p className="text-sm text-[#5a5c57] font-light max-w-xl lowercase">
-                two sculpted apartment towers and an independent villa enclave with verified carpet area definitions.
+                seventeen sculpted apartment towers and independent villa enclaves with verified carpet area definitions across South-West Ahmedabad.
               </p>
             </motion.div>
 
@@ -825,12 +1516,15 @@ export default function App() {
                 />
               </AnimatePresence>
 
-              <div className="absolute top-6 left-6 flex items-center gap-2">
+              <div className="absolute top-6 left-6 flex items-center gap-2 flex-wrap">
                 <div className="px-3.5 py-1.5 rounded-full bg-[#0d0e0d]/85 text-white font-mono text-[11px] tracking-wider uppercase backdrop-blur-md">
                   {currentProperty.id}
                 </div>
                 <div className="px-3 py-1.5 rounded-full bg-white/90 text-[#0d0e0d] text-[11px] font-medium backdrop-blur-md lowercase">
                   {currentProperty.availability}
+                </div>
+                <div className="px-3 py-1.5 rounded-full bg-black/60 text-white text-[10px] font-mono backdrop-blur-md uppercase">
+                  {currentProperty.location.split(',')[0]}
                 </div>
               </div>
 
@@ -858,7 +1552,7 @@ export default function App() {
                   className="space-y-5"
                 >
                   <div className="flex items-center justify-between border-b border-black/[0.06] pb-3 text-xs font-mono text-[#8c8e87]">
-                    <span>residence {currentProperty.number} / 04</span>
+                    <span>residence {currentProperty.number} / {PROPERTIES.length < 10 ? '0' + PROPERTIES.length : PROPERTIES.length}</span>
                     <span>{currentProperty.category}</span>
                   </div>
 
@@ -952,114 +1646,259 @@ export default function App() {
             </div>
           </div>
 
-          {/* Quick Project Select Tabs */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
-            {PROPERTIES.map((proj, idx) => (
-              <motion.button
-                key={proj.id}
-                whileHover={{ y: -3 }}
-                whileTap={{ y: 0 }}
-                onClick={() => triggerProjectChange(idx)}
-                className={`p-5 rounded-2xl text-left transition-colors cursor-pointer border ${
-                  activeProjectIdx === idx
-                    ? 'bg-[#0d0e0d] text-white border-[#0d0e0d] shadow-sm'
-                    : 'bg-white text-[#0d0e0d] border-black/[0.08] hover:border-black/20'
-                }`}
-              >
-                <div className={`text-[11px] font-mono ${activeProjectIdx === idx ? 'text-neutral-300' : 'text-[#8c8e87]'}`}>
-                  {proj.id} • {proj.priceDisplay}
-                </div>
-                <div className="font-display font-light text-base mt-1.5 lowercase">
-                  {proj.title}
-                </div>
-                <div className={`text-xs mt-1 font-light ${activeProjectIdx === idx ? 'text-neutral-300' : 'text-[#5a5c57]'}`}>
-                  {proj.carpetAreaSqFt} sq. ft. • {proj.bedrooms} bed
-                </div>
-              </motion.button>
-            ))}
+          {/* Category Filter Pills & Quick Project Select Cards */}
+          <div className="space-y-4 pt-4">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <span className="text-xs font-mono text-[#8c8e87] uppercase">
+                filter inventory by typology:
+              </span>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {[
+                  { id: 'all', label: `all (${PROPERTIES.length})` },
+                  { id: '1bhk', label: `1 bhk (${PROPERTIES.filter(p => p.configGroup === '1bhk').length})` },
+                  { id: '2bhk', label: `2 bhk (${PROPERTIES.filter(p => p.configGroup === '2bhk').length})` },
+                  { id: '3bhk', label: `3 bhk (${PROPERTIES.filter(p => p.configGroup === '3bhk').length})` },
+                  { id: '4bhk', label: `4 bhk (${PROPERTIES.filter(p => p.configGroup === '4bhk').length})` },
+                  { id: 'villa', label: `villas (${PROPERTIES.filter(p => p.configGroup === 'villa').length})` }
+                ].map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSelectedCategory(cat.id)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-mono lowercase transition-colors cursor-pointer border ${
+                      selectedCategory === cat.id
+                        ? 'bg-[#0d0e0d] text-white border-[#0d0e0d]'
+                        : 'bg-white text-[#5a5c57] border-black/[0.08] hover:border-black/20'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+              {PROPERTIES
+                .filter(proj => selectedCategory === 'all' || proj.configGroup === selectedCategory)
+                .map((proj) => {
+                  const actualIdx = PROPERTIES.findIndex(p => p.id === proj.id)
+                  const isActive = activeProjectIdx === actualIdx
+                  return (
+                    <motion.button
+                      key={proj.id}
+                      whileHover={{ y: -3 }}
+                      whileTap={{ y: 0 }}
+                      onClick={() => triggerProjectChange(actualIdx)}
+                      className={`p-4 sm:p-5 rounded-2xl text-left transition-all cursor-pointer border ${
+                        isActive
+                          ? 'bg-[#0d0e0d] text-white border-[#0d0e0d] shadow-md ring-2 ring-black/10'
+                          : 'bg-white text-[#0d0e0d] border-black/[0.08] hover:border-black/20 hover:shadow-sm'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-1">
+                        <span className={`text-[11px] font-mono font-medium ${isActive ? 'text-neutral-200' : 'text-[#0d0e0d]'}`}>
+                          {proj.id}
+                        </span>
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full lowercase font-mono ${
+                          isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-neutral-100 text-[#5a5c57]'
+                        }`}>
+                          {proj.availability}
+                        </span>
+                      </div>
+                      
+                      <div className="font-display font-light text-sm sm:text-base mt-2 line-clamp-1 lowercase">
+                        {proj.title}
+                      </div>
+
+                      <div className={`text-xs mt-1 font-light ${isActive ? 'text-neutral-300' : 'text-[#5a5c57]'}`}>
+                        {proj.carpetAreaSqFt} sq. ft. • {proj.bedrooms} bed
+                      </div>
+
+                      <div className="mt-3 pt-2 border-t border-black/[0.06] flex items-center justify-between text-[11px]">
+                        <span className={`font-mono font-medium ${isActive ? 'text-white' : 'text-[#0d0e0d]'}`}>
+                          {proj.priceDisplay}
+                        </span>
+                        <span className={`text-[10px] ${isActive ? 'text-neutral-300' : 'text-[#8c8e87]'}`}>
+                          {proj.location.split(',')[0]}
+                        </span>
+                      </div>
+                    </motion.button>
+                  )
+                })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. Comparison at a Glance Table (Exact matrix from Page 1 of PDF) */}
+      {/* 4. Comparison at a Glance Table (Complete 17 Properties Matrix from PDF) */}
       <section id="comparison" className="py-28 px-6 md:px-10 border-b border-black/[0.08] bg-white">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="space-y-3">
-            <span className="text-xs font-mono tracking-widest text-[#8c8e87] uppercase">
-              data matrix • section 03
-            </span>
-            <h2 className="font-display font-extralight text-3xl sm:text-5xl tracking-[-0.04em] text-[#0d0e0d] lowercase">
-              property comparison at a glance
-            </h2>
-            <p className="text-sm text-[#5a5c57] font-light max-w-2xl leading-relaxed lowercase">
-              all measurements conform to state real estate regulatory standards. carpet area reflects net usable floor area excluding external walls, shafts and open terrace.
-            </p>
+        <div className="max-w-7xl mx-auto space-y-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-3">
+              <span className="text-xs font-mono tracking-widest text-[#8c8e87] uppercase">
+                data matrix • section 03
+              </span>
+              <h2 className="font-display font-extralight text-3xl sm:text-5xl tracking-[-0.04em] text-[#0d0e0d] lowercase">
+                property comparison at a glance
+              </h2>
+              <p className="text-sm text-[#5a5c57] font-light max-w-2xl leading-relaxed lowercase">
+                all measurements conform to Gujarat real estate regulatory standards. carpet area reflects net usable floor area excluding external walls, shafts and open terrace.
+              </p>
+            </div>
+
+            {/* Filter controls */}
+            <div className="flex flex-col gap-2 shrink-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {[
+                  { id: 'all', label: 'all typologies' },
+                  { id: '1bhk', label: '1 bhk' },
+                  { id: '2bhk', label: '2 bhk' },
+                  { id: '3bhk', label: '3 bhk' },
+                  { id: '4bhk', label: '4 bhk' },
+                  { id: 'villa', label: 'villas' }
+                ].map((f) => (
+                  <button
+                    key={f.id}
+                    onClick={() => setTableFilter(f.id)}
+                    className={`px-3 py-1 rounded-full text-xs font-mono lowercase transition-colors cursor-pointer border ${
+                      tableFilter === f.id
+                        ? 'bg-[#0d0e0d] text-white border-[#0d0e0d]'
+                        : 'bg-[#f7f7f5] text-[#5a5c57] border-black/[0.08] hover:border-black/20'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {[
+                  { id: 'all', label: 'all areas' },
+                  { id: 'bopal', label: 'bopal' },
+                  { id: 'south bopal', label: 'south bopal' },
+                  { id: 'shela', label: 'shela' },
+                  { id: 'sp ring road', label: 'sp ring road' }
+                ].map((loc) => (
+                  <button
+                    key={loc.id}
+                    onClick={() => setTableLocation(loc.id)}
+                    className={`px-2.5 py-0.5 rounded-md text-[11px] font-mono lowercase transition-colors cursor-pointer ${
+                      tableLocation === loc.id
+                        ? 'bg-neutral-800 text-white'
+                        : 'text-[#8c8e87] hover:text-[#0d0e0d]'
+                    }`}
+                  >
+                    • {loc.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Clean Geometric Table */}
-          <div className="overflow-x-auto border border-black/[0.08] rounded-2xl">
+          <div className="overflow-x-auto border border-black/[0.08] rounded-2xl shadow-sm">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-[#f7f7f5] border-b border-black/[0.08] text-[11px] font-mono uppercase tracking-wider text-[#8c8e87]">
                   <th className="py-4 px-6 font-medium">property id</th>
-                  <th className="py-4 px-6 font-medium">configuration</th>
+                  <th className="py-4 px-6 font-medium">configuration & locality</th>
+                  <th className="py-4 px-6 font-medium">status</th>
                   <th className="py-4 px-6 font-medium">carpet area</th>
                   <th className="py-4 px-6 font-medium">built-up area</th>
                   <th className="py-4 px-6 font-medium">saleable / plot</th>
                   <th className="py-4 px-6 font-medium">indicative base price</th>
-                  <th className="py-4 px-6 font-medium text-right">inspect</th>
+                  <th className="py-4 px-6 font-medium text-right">actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/[0.06]">
-                {PROPERTIES.map((prop, idx) => (
-                  <tr
-                    key={prop.id}
-                    className="hover:bg-[#f7f7f5]/60 transition-colors group"
-                  >
-                    <td className="py-5 px-6 font-mono font-medium text-[#0d0e0d]">
-                      {prop.id}
-                    </td>
-                    <td className="py-5 px-6">
-                      <span className="font-medium text-[#0d0e0d] block lowercase">{prop.title}</span>
-                      <span className="text-[11px] text-[#8c8e87]">{prop.tower} • {prop.floor}</span>
-                    </td>
-                    <td className="py-5 px-6 text-[#5a5c57]">
-                      <span className="text-[#0d0e0d] font-medium block">{prop.carpetAreaSqFt} sq. ft.</span>
-                      <span className="text-[11px] text-[#8c8e87]">{prop.carpetAreaSqM} sq. m.</span>
-                    </td>
-                    <td className="py-5 px-6 text-[#5a5c57]">
-                      <span className="text-[#0d0e0d] font-medium block">{prop.builtUpSqFt} sq. ft.</span>
-                      <span className="text-[11px] text-[#8c8e87]">{prop.builtUpSqM} sq. m.</span>
-                    </td>
-                    <td className="py-5 px-6 text-[#5a5c57]">
-                      {prop.plotSqFt ? (
-                        <div>
-                          <span className="text-[#0d0e0d] font-medium block">plot {prop.plotSqFt} sq. ft.</span>
-                          <span className="text-[11px] text-[#8c8e87]">{prop.plotSqM} sq. m. plot</span>
-                        </div>
-                      ) : (
-                        <div>
-                          <span className="text-[#0d0e0d] font-medium block">{prop.saleableSqFt} sq. ft.</span>
-                          <span className="text-[11px] text-[#8c8e87]">{prop.saleableSqM} sq. m.</span>
-                        </div>
-                      )}
-                    </td>
-                    <td className="py-5 px-6">
-                      <span className="font-display font-light text-xl text-[#0d0e0d] block">
-                        {prop.priceDisplay}
-                      </span>
-                      <span className="text-[10px] text-[#8c8e87] lowercase">base quotation</span>
-                    </td>
-                    <td className="py-5 px-6 text-right">
-                      <button
-                        onClick={() => setActiveModalProperty(prop)}
-                        className="px-3.5 py-1.5 rounded-full border border-black/15 text-[11px] font-mono hover:bg-[#0d0e0d] hover:text-white transition-colors cursor-pointer"
+                {PROPERTIES
+                  .filter((prop) => {
+                    const matchCategory = tableFilter === 'all' || prop.configGroup === tableFilter
+                    const matchLocation = tableLocation === 'all' || prop.location.toLowerCase().includes(tableLocation.toLowerCase())
+                    return matchCategory && matchLocation
+                  })
+                  .map((prop) => {
+                    const actualIdx = PROPERTIES.findIndex(p => p.id === prop.id)
+                    return (
+                      <tr
+                        key={prop.id}
+                        className="hover:bg-[#f7f7f5]/70 transition-colors group"
                       >
-                        specs
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                        <td className="py-4 px-6 font-mono font-medium text-[#0d0e0d]">
+                          <button
+                            onClick={() => {
+                              triggerProjectChange(actualIdx)
+                              const el = document.getElementById('properties')
+                              if (el) el.scrollIntoView({ behavior: 'smooth' })
+                            }}
+                            className="hover:underline underline-offset-2 cursor-pointer text-left"
+                          >
+                            {prop.id}
+                          </button>
+                        </td>
+                        <td className="py-4 px-6">
+                          <span className="font-medium text-[#0d0e0d] block lowercase">{prop.title}</span>
+                          <span className="text-[11px] text-[#8c8e87]">{prop.location.split(',')[0]} • {prop.floor}</span>
+                        </td>
+                        <td className="py-4 px-6">
+                          <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono lowercase ${
+                            prop.availability === 'Ready to move'
+                              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                              : prop.availability === 'Under construction'
+                              ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                              : 'bg-neutral-100 text-neutral-800 border border-black/10'
+                          }`}>
+                            {prop.availability}
+                          </span>
+                        </td>
+                        <td className="py-4 px-6 text-[#5a5c57]">
+                          <span className="text-[#0d0e0d] font-medium block">{prop.carpetAreaSqFt} sq. ft.</span>
+                          <span className="text-[11px] text-[#8c8e87]">{prop.carpetAreaSqM} sq. m.</span>
+                        </td>
+                        <td className="py-4 px-6 text-[#5a5c57]">
+                          <span className="text-[#0d0e0d] font-medium block">{prop.builtUpSqFt} sq. ft.</span>
+                          <span className="text-[11px] text-[#8c8e87]">{prop.builtUpSqM} sq. m.</span>
+                        </td>
+                        <td className="py-4 px-6 text-[#5a5c57]">
+                          {prop.plotSqFt ? (
+                            <div>
+                              <span className="text-[#0d0e0d] font-medium block">plot {prop.plotSqFt} sq. ft.</span>
+                              <span className="text-[11px] text-[#8c8e87]">{prop.plotSqM} sq. m. plot</span>
+                            </div>
+                          ) : (
+                            <div>
+                              <span className="text-[#0d0e0d] font-medium block">{prop.saleableSqFt} sq. ft.</span>
+                              <span className="text-[11px] text-[#8c8e87]">{prop.saleableSqM} sq. m.</span>
+                            </div>
+                          )}
+                        </td>
+                        <td className="py-4 px-6">
+                          <span className="font-display font-light text-lg sm:text-xl text-[#0d0e0d] block">
+                            {prop.priceDisplay}
+                          </span>
+                          <span className="text-[10px] text-[#8c8e87] lowercase">base quotation</span>
+                        </td>
+                        <td className="py-4 px-6 text-right whitespace-nowrap">
+                          <div className="inline-flex items-center gap-1.5">
+                            <button
+                              onClick={() => setActiveModalProperty(prop)}
+                              className="px-3 py-1.5 rounded-full border border-black/15 text-[11px] font-mono hover:bg-[#0d0e0d] hover:text-white transition-colors cursor-pointer"
+                            >
+                              specs
+                            </button>
+                            <a
+                              href="#contact"
+                              onClick={() => setFormData((prev) => ({ ...prev, propertyId: prop.id }))}
+                              className="px-3 py-1.5 rounded-full bg-[#0d0e0d] text-white text-[11px] font-mono hover:bg-neutral-800 transition-colors cursor-pointer"
+                            >
+                              inquire
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
               </tbody>
             </table>
           </div>
@@ -1559,7 +2398,7 @@ export default function App() {
                       >
                         {PROPERTIES.map((proj) => (
                           <option key={proj.id} value={proj.id}>
-                            {proj.id} — {proj.title} ({proj.priceDisplay})
+                            {proj.id} — {proj.title} • {proj.location.split(',')[0]} ({proj.priceDisplay})
                           </option>
                         ))}
                       </select>
@@ -1631,8 +2470,11 @@ export default function App() {
             </div>
 
             <div className="md:col-span-3 space-y-3 text-xs text-neutral-300">
-              <span className="font-mono text-[#8c8e87] uppercase block text-[11px]">the 4 residences</span>
-              <div className="space-y-2 font-light">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[#8c8e87] uppercase block text-[11px]">residences ({PROPERTIES.length})</span>
+                <span className="text-[10px] font-mono text-neutral-400">1 to 5 bhk</span>
+              </div>
+              <div className="space-y-2 font-light max-h-56 overflow-y-auto pr-2">
                 {PROPERTIES.map((p, idx) => (
                   <button
                     key={p.id}
@@ -1641,9 +2483,9 @@ export default function App() {
                       const el = document.getElementById('properties')
                       if (el) el.scrollIntoView({ behavior: 'smooth' })
                     }}
-                    className="block hover:text-white transition-colors text-left lowercase"
+                    className="block hover:text-white text-neutral-400 transition-colors text-left lowercase w-full truncate cursor-pointer"
                   >
-                    {p.id} • {p.title}
+                    <span className="font-mono text-white/90">{p.id}</span> • {p.title}
                   </button>
                 ))}
               </div>
