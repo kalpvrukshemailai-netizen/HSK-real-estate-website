@@ -27,7 +27,7 @@ var CONFIG = {
   DEFAULT_SPREADSHEET_ID: "1a4sfmK6faPs9QR3-_0fQzksn49epumoTbzwas2tnfv8",
   TIMEZONE: "Asia/Kolkata", // Indian Standard Time (UTC+05:30)
   LOCK_TIMEOUT_MS: 10000,
-  ALLOW_PUBLIC_ENQUIRIES: true // Permits public website inquiries without client-side secret exposure
+  ALLOW_PUBLIC_ENQUIRIES: true // Permits public website enquiries without client-side secret exposure
 };
 
 // Canonical Sheet Header Schemas (Supports both 18-col and 21-col variants dynamically)
@@ -105,33 +105,65 @@ function getSharedSecret() {
 
 /**
  * Verifies authorization for protected actions.
- * Public enquiry submissions from the website frontend are permitted without exposing secrets.
+ * - Public status probes ('health', 'ping') and website enquiry intake ('createEnquiry' and aliases)
+ *   are accessible without shared secret when ALLOW_PUBLIC_ENQUIRIES is true.
+ * - All operational & management actions ('getEnquiries', 'getCallOutcomes', 'getWebhookEvents',
+ *   'getSystemState', 'updateSystemState', 'claimNextEnquiry', 'acquireDialerLock', 'releaseDialerLock',
+ *   'reconcileStaleLocks', 'recordOutcome', 'recordWebhookEvent', 'initializeTabs') FAIL CLOSED
+ *   if HSK_SHARED_SECRET is not configured or does not match.
  */
 function verifyAuthorization(payload, parameter, action, e) {
-  // Public actions do not require server secret if public submissions are permitted
-  var isPublicAction = (action === "createEnquiry" || action === "create_enquiry" || action === "submit_enquiry" || action === "new_enquiry" || action === "health" || action === "ping");
-  if (isPublicAction && CONFIG.ALLOW_PUBLIC_ENQUIRIES) {
+  var normalized = normalizeActionName(action);
+
+  // 1. Only lightweight status probes are unconditionally public
+  if (normalized === "health" || normalized === "ping") {
     return true;
   }
 
+  // 2. Public Enquiry Intake is permitted from website frontends without client-side secret exposure
+  var allowPublicEnquiries = true;
+  try {
+    var prop = PropertiesService.getScriptProperties().getProperty("ALLOW_PUBLIC_ENQUIRIES");
+    if (prop !== null && prop !== undefined && String(prop).trim().length > 0) {
+      allowPublicEnquiries = (String(prop).toLowerCase() === "true");
+    } else if (CONFIG.ALLOW_PUBLIC_ENQUIRIES !== undefined) {
+      allowPublicEnquiries = !!CONFIG.ALLOW_PUBLIC_ENQUIRIES;
+    }
+  } catch (ignored) {
+    allowPublicEnquiries = !!CONFIG.ALLOW_PUBLIC_ENQUIRIES;
+  }
+
+  if (normalized === "createEnquiry" && allowPublicEnquiries) {
+    return true;
+  }
+
+  // 3. Retrieve configured server shared secret
   var configuredSecret = getSharedSecret();
-  // If no secret configured in ScriptProperties, allow initial setup
-  if (!configuredSecret) {
-    return true;
+
+  // AUDIT REQUIREMENT: Fail closed if shared secret is missing from ScriptProperties
+  if (!configuredSecret || String(configuredSecret).trim().length === 0) {
+    Logger.log("Authorization rejected: HSK_SHARED_SECRET is not configured in ScriptProperties (failing closed).");
+    return false;
   }
 
+  // 4. Extract provided token from payload, parameter, or headers
   var provided = (payload && (payload.shared_secret || payload.secret || payload.auth_token)) ||
                  (parameter && (parameter.shared_secret || parameter.secret || parameter.auth_token));
 
-  // Also check request headers (e.g. x-hsk-secret or Authorization)
+  // Also check request headers (e.g. x-hsk-secret or Authorization: Bearer <token>)
   if (!provided && e && e.headers) {
     provided = e.headers["x-hsk-secret"] || e.headers["X-HSK-Secret"] || e.headers["authorization"] || e.headers["Authorization"];
-    if (provided && provided.toLowerCase().indexOf("bearer ") === 0) {
-      provided = provided.substring(7);
+    if (provided && String(provided).toLowerCase().indexOf("bearer ") === 0) {
+      provided = String(provided).substring(7).trim();
     }
   }
 
-  return provided === configuredSecret;
+  if (!provided || String(provided).trim().length === 0) {
+    Logger.log("Authorization rejected: Protected action '" + normalized + "' missing shared secret token.");
+    return false;
+  }
+
+  return String(provided).trim() === String(configuredSecret).trim();
 }
 
 /**
@@ -165,7 +197,12 @@ function doPost(e) {
     var action = normalizeActionName(payload.action || (e && e.parameter ? e.parameter.action : ""));
 
     // Default to createEnquiry if lead fields are present without an explicit action
-    if (!action && (payload.customer_name || payload.name || payload.phone_number || payload.phone || payload.enquiry)) {
+    if (!action && (
+      payload.customer_name || payload.name || payload.fullName || payload.full_name || payload.lead_name ||
+      payload.phone_number || payload.phone || payload.mobile || payload.contact_number || payload.contact ||
+      payload.propertyId || payload.property || payload.project_interest || payload.enquiry ||
+      payload.email || payload.visitDate || payload.preferredDate
+    )) {
       action = "createEnquiry";
     }
     if (!action) {
@@ -186,6 +223,12 @@ function doPost(e) {
         break;
       case "getEnquiries":
         result = handleGetEnquiries(ss, payload);
+        break;
+      case "getCallOutcomes":
+        result = handleGetCallOutcomes(ss, payload);
+        break;
+      case "getWebhookEvents":
+        result = handleGetWebhookEvents(ss, payload);
         break;
       case "createEnquiry":
         result = handleCreateEnquiry(ss, payload);
@@ -265,6 +308,11 @@ function doGet(e) {
       return jsonResponse(enquiriesResult);
     }
 
+    if (action === "getCallOutcomes") {
+      var outcomesResult = handleGetCallOutcomes(ss, params);
+      return jsonResponse(outcomesResult);
+    }
+
     if (action === "getSystemState") {
       return jsonResponse(systemState);
     }
@@ -303,11 +351,25 @@ function normalizeActionName(action) {
     "get_enquiries": "getEnquiries",
     "read_enquiries": "getEnquiries",
     "list_enquiries": "getEnquiries",
+    "getcalloutcomes": "getCallOutcomes",
+    "get_call_outcomes": "getCallOutcomes",
+    "list_call_outcomes": "getCallOutcomes",
+    "getwebhookevents": "getWebhookEvents",
+    "get_webhook_events": "getWebhookEvents",
     "createenquiry": "createEnquiry",
     "create_enquiry": "createEnquiry",
     "submitenquiry": "createEnquiry",
     "submit_enquiry": "createEnquiry",
     "new_enquiry": "createEnquiry",
+    "newenquiry": "createEnquiry",
+    "enquiry": "createEnquiry",
+    "submit": "createEnquiry",
+    "contact": "createEnquiry",
+    "contact_us": "createEnquiry",
+    "lead": "createEnquiry",
+    "add_lead": "createEnquiry",
+    "addlead": "createEnquiry",
+    "create_lead": "createEnquiry",
     "claimnextenquiry": "claimNextEnquiry",
     "claim_next_enquiry": "claimNextEnquiry",
     "claim_queue_item": "claimNextEnquiry",
@@ -479,9 +541,90 @@ function handleGetEnquiries(ss, payload) {
 }
 
 /**
+ * Retrieves Call Outcomes from the Call_Outcomes tab
+ */
+function handleGetCallOutcomes(ss, payload) {
+  var sheet = ss.getSheetByName(TABS.CALL_OUTCOMES);
+  if (!sheet) {
+    return { success: true, count: 0, outcomes: [] };
+  }
+
+  var data = sheet.getDataRange().getValues();
+  if (data.length <= 1) {
+    return { success: true, count: 0, outcomes: [] };
+  }
+
+  var headers = data[0];
+  var outcomes = [];
+  var limit = payload && payload.limit ? Number(payload.limit) : 100;
+  var enquiryId = payload && payload.enquiry_id ? String(payload.enquiry_id).trim() : "";
+
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    if (!row[0]) continue;
+
+    var record = {};
+    for (var h = 0; h < headers.length; h++) {
+      record[headers[h]] = row[h];
+    }
+
+    if (enquiryId && record.enquiry_id !== enquiryId) {
+      continue;
+    }
+
+    outcomes.push(record);
+  }
+
+  return {
+    success: true,
+    count: outcomes.length,
+    outcomes: outcomes.slice(0, limit)
+  };
+}
+
+/**
+ * Retrieves logged webhook events from the Webhook_Events tab
+ */
+function handleGetWebhookEvents(ss, payload) {
+  var sheet = ss.getSheetByName(TABS.WEBHOOK_EVENTS);
+  if (!sheet) {
+    return { success: true, count: 0, events: [] };
+  }
+
+  var data = sheet.getDataRange().getValues();
+  if (data.length <= 1) {
+    return { success: true, count: 0, events: [] };
+  }
+
+  var headers = data[0];
+  var events = [];
+  var limit = payload && payload.limit ? Number(payload.limit) : 100;
+
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    if (!row[0]) continue;
+
+    var record = {};
+    for (var h = 0; h < headers.length; h++) {
+      record[headers[h]] = row[h];
+    }
+    events.push(record);
+  }
+
+  return {
+    success: true,
+    count: events.length,
+    events: events.slice(0, limit)
+  };
+}
+
+/**
  * Creates an enquiry record.
  * Supports Website form contract (name, phone, email, propertyId, preferredDate)
  * and direct API contracts (customer_name, phone_number, project_interest, etc.).
+ *
+ * NOTE: Duplicate phone number blocking has been removed so all testing and repeated
+ * inquiries from any lead or user are ALWAYS appended to the Google Sheet.
  */
 function handleCreateEnquiry(ss, payload) {
   var sheet = ss.getSheetByName(TABS.ENQUIRIES);
@@ -492,12 +635,12 @@ function handleCreateEnquiry(ss, payload) {
 
   var raw = payload.enquiry || payload.data || payload;
 
-  // Field extraction with camelCase & snake_case compatibility
-  var customerName = raw.customer_name || raw.name || raw.fullName || "";
-  var phoneNumber = raw.phone_number || raw.phone || raw.mobile || "";
-  var email = raw.email || "";
-  var projectInterest = raw.project_interest || raw.propertyId || raw.property_interest || raw.property || "General";
-  var preferredDate = raw.preferredDate || raw.preferred_date || raw.visitDate || "";
+  // Field extraction with camelCase, snake_case & website form compatibility
+  var customerName = raw.customer_name || raw.name || raw.fullName || raw.full_name || raw.lead_name || "";
+  var phoneNumber = raw.phone_number || raw.phone || raw.mobile || raw.contact_number || raw.contact || "";
+  var email = raw.email || raw.email_id || "";
+  var projectInterest = raw.project_interest || raw.propertyId || raw.property_id || raw.property_interest || raw.property || raw.project || "General";
+  var preferredDate = raw.preferredDate || raw.preferred_date || raw.visitDate || raw.visit_date || "";
 
   if (!customerName || !phoneNumber) {
     return { success: false, error: "customer_name (or name) and phone_number (or phone) are required" };
@@ -507,51 +650,43 @@ function handleCreateEnquiry(ss, payload) {
   var nowIso = raw.created_at || new Date().toISOString();
 
   // Supplementary Customer Notes compilation
-  var notes = raw.customer_notes || raw.notes || "";
+  var notes = raw.customer_notes || raw.notes || raw.message || raw.comment || raw.comments || "";
   var extraDetails = [];
   if (email) extraDetails.push("Email: " + email);
   if (preferredDate) extraDetails.push("Preferred Visit: " + preferredDate);
-  if (raw.consent !== undefined) extraDetails.push("Consent: " + (raw.consent ? "YES" : "NO"));
+  if (raw.consent !== undefined) {
+    var consentVal = (raw.consent === true || String(raw.consent).toLowerCase() === "true" || String(raw.consent).toUpperCase() === "YES" || raw.consent === 1);
+    extraDetails.push("Consent: " + (consentVal ? "YES" : "NO"));
+  }
 
   if (extraDetails.length > 0) {
     notes = notes ? (notes + " | " + extraDetails.join(" | ")) : extraDetails.join(" | ");
   }
 
-  // Check for existing pending/active enquiry with same phone or same enquiry_id to avoid duplicates
   var data = sheet.getDataRange().getValues();
   var headers = data[0];
-  var phoneIdx = headers.indexOf("phone_number");
-  var statusIdx = headers.indexOf("current_status");
   var idIdx = headers.indexOf("enquiry_id");
 
   var incomingId = raw.enquiry_id || raw.id || "";
 
-  for (var i = 1; i < data.length; i++) {
-    var existingId = idIdx !== -1 ? String(data[i][idIdx]).trim() : "";
-    var existingPhone = phoneIdx !== -1 ? String(data[i][phoneIdx]).trim() : "";
-    var existingStatus = statusIdx !== -1 ? String(data[i][statusIdx]).trim() : "";
-
-    // 1. Exact ID duplicate
-    if (incomingId && existingId === incomingId) {
-      return {
-        success: true,
-        is_duplicate: true,
-        message: "Enquiry already exists with this enquiry_id (idempotent)",
-        enquiry_id: existingId
-      };
-    }
-
-    // 2. Active lead with same phone
-    if (existingPhone === cleanPhone && (existingStatus === "NEW" || existingStatus === "QUEUED" || existingStatus === "CALLING" || existingStatus === "PENDING_CALL" || existingStatus === "RETRY_SCHEDULED")) {
-      return {
-        success: true,
-        is_duplicate: true,
-        message: "Enquiry already queued/active for this phone number",
-        enquiry_id: existingId || data[i][0]
-      };
+  // Only check exact ID duplicate if an incoming enquiry_id was explicitly provided (for idempotent retries)
+  if (incomingId && idIdx !== -1) {
+    for (var i = 1; i < data.length; i++) {
+      var existingId = String(data[i][idIdx]).trim();
+      if (existingId === incomingId) {
+        return {
+          success: true,
+          status: "success",
+          is_duplicate: true,
+          message: "Enquiry already exists with this enquiry_id (idempotent)",
+          enquiry_id: existingId,
+          id: existingId
+        };
+      }
     }
   }
 
+  // Generate unique Enquiry ID and record enquiry row
   var enquiryId = incomingId || generateEnquiryId(data.length);
   var inWindow = isCallingWindowOpen();
   var queueClass = raw.queue_class || (inWindow ? "FRESH" : "BACKLOG");
@@ -597,7 +732,10 @@ function handleCreateEnquiry(ss, payload) {
 
   return {
     success: true,
+    status: "success",
+    message: "Enquiry received successfully",
     enquiry_id: enquiryId,
+    id: enquiryId,
     queue_class: queueClass,
     current_status: currentStatus,
     in_calling_window: inWindow,
